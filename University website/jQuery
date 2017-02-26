@@ -1,0 +1,60 @@
+  $(document).ready(function(){
+      var _index = 0;
+
+      var time; 
+
+      //按钮点击切换
+       $("#banner .but ul li").click(function(){
+         $(this).addClass('hover').siblings().removeClass("hover");
+         _index = $(this).index()
+         $("#banner .banner_box ul li").eq(_index).fadeIn().siblings().fadeOut();
+       });
+
+       //左右按钮显示
+       $("#banner").hover(function(){
+         $("#banner .prev").show();
+         $("#banner .next").show();
+         clearInterval(time);
+       },function(){
+         $("#banner .prev").hide();
+         $("#banner .next").hide();
+         time = setInterval(autoShow,1500);
+       });
+
+         //左边按钮
+         $("#banner .prev").click(function(){
+           _index--;
+           if(_index<0){
+              _index = 3;
+           }
+          animate(_index);
+         });
+
+         //右边按钮
+         $("#banner .next").click(function(){
+             autoShow();
+         });
+
+         function animate(_index){
+           $("#banner .banner_box ul li").eq(_index).fadeIn().siblings().fadeOut();
+           $("#banner .but ul li").eq(_index).addClass('hover').siblings().removeClass("hover");
+         }
+
+         function autoShow(){
+             _index++;
+             if(_index>3){
+                _index = 0;
+             }
+             animate(_index);
+         }
+          time = setInterval(autoShow,1500);
+          
+          //导航弹出
+          $(".logo_nav li").hover(function(){
+
+              $(this).addClass("hover");
+
+          },function(){
+              $(this).removeClass("hover");
+          });
+   });
